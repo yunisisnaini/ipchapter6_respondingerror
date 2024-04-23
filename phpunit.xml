@@ -10,8 +10,9 @@
         </testsuite>
     </testsuites>
     <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="CACHE_DRIVER" value="array"/>
+        <env name="APP_ENV" value="local"/>
+        <env name="DB_DATABASE" value="book_testing"/>
+        <env name="CACHE_DRIVER" value="file"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
     </php>
 </phpunit>
