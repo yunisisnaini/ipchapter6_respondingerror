@@ -24,10 +24,11 @@ class BookFactory extends Factory
      */
     public function definition()
     {
+        $title = $this->faker->sentence(rand(3, 10));
         return [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'author' => $this->faker->name,
+            'title' => substr($title, 0, strlen($title) - 1),
+            'description' => $this->faker->text,
+            'author' => $this->faker->name
         ];
     }
 }

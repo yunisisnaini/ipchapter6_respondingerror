@@ -6,31 +6,24 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Book;
 
-class BooksController extends Controller
+/**
+ * Class BooksController
+ * @package App\Http\Controllers
+ */
+class BooksController
 {
     /**
-     * Create a new controller instance.
-     * 
+     * GET /books
      * @return array
      */
     public function index()
     {
-        return Book::all()->toArray();
+        return Book::all();
     }
 
     public function show($id)
     {
-        try {
-            return Book::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'error' => [
-                    'message' => 'Book not found'
-                ]
-            ], 404);
-        }
-
-        // return Book::findOrFail($id);
+        return Book::findOrFail($id);
     }
 
     public function store(Request $request)
@@ -72,6 +65,13 @@ class BooksController extends Controller
         }
 
         $book->delete();
+        return response(null, 204);
+    }
+
+    public function destroyall()
+    {
+        $book = Book::truncate();
+        // $book->delete();x
         return response(null, 204);
     }
 }

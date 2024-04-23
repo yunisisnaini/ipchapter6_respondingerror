@@ -2,13 +2,16 @@
 
 namespace App\Exceptions;
 
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -68,18 +71,18 @@ class Handler extends ExceptionHandler
                     'trace' => $exception->getTrace()
                 ];
             }
+
             return response()->json(['error' => $response], $response['status']);
         }
         return parent::render($request, $exception);
     }
-
-     /**
+    /**
      * Determine if the application is in debug mode.
      *
      * @return Boolean
      */
     public function isDebugMode()
     {
-        return (Boolean) env('APP_DEBUG');
+        return (bool) env('APP_DEBUG');
     }
 }
